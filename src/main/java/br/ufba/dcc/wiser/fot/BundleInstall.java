@@ -76,9 +76,9 @@ public class BundleInstall {
             StringBuffer sb = new StringBuffer("Bundle IDs: ");
             for (Bundle bundle : bundles) {
                 if (sb.length() > 0) {
-                    sb.append(", ");
+                    sb.append("\n");
                 }
-                sb.append(bundle.getBundleId());
+                sb.append(bundle.getBundleId()).append(" : ").append(bundle.getLocation());
             }
             System.err.println(sb);
         }
