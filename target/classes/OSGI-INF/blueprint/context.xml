@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    
+    <reference  id="bundleService" interface="org.apache.karaf.bundle.core.BundleService"/>
+    <reference  id="session" interface="org.apache.karaf.shell.api.console.Session"/>
+    
+    <bean id="bundleInstall" class="br.ufba.dcc.wiser.fot.BundleInstall">
+        <property name="bundleContext" ref="blueprintBundleContext" />
+        <property name="bundleService" ref="bundleService" />
+        <property name="session" ref="session" />
+    </bean>
+    
+    <bean id="bundleUninstall" class="br.ufba.dcc.wiser.fot.BundleUninstall">
+        <property name="bundleContext" ref="blueprintBundleContext" />
+        <property name="bundleService" ref="bundleService" />
+        <property name="session" ref="session" />
+    </bean>
+
+    <service>
+        <interfaces>
+            <value>javax.servlet.http.HttpServlet</value>
+        </interfaces>
+        <service-properties>
+            <entry key="alias" value="/bundleInstall" />
+        </service-properties>
+        <bean class="br.ufba.dcc.wiser.fot.CommandCallServletInstall">
+            <property name="bundleInstall" ref="bundleInstall" />
+        </bean>
+    </service>
+    
+    <service>
+        <interfaces>
+            <value>javax.servlet.http.HttpServlet</value>
+        </interfaces>
+        <service-properties>
+            <entry key="alias" value="/bundleUninstall" />
+        </service-properties>
+        <bean class="br.ufba.dcc.wiser.fot.CommandCallServletUninstall">
+            <property name="bundleUninstall" ref="bundleUninstall" />
+        </bean>
+    </service>
+
+</blueprint>
