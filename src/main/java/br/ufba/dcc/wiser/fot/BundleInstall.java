@@ -69,8 +69,9 @@ public class BundleInstall {
         }
         
         // print the installed bundles
+        System.err.println("Installing >");
         if (bundles.size() == 1) {
-            System.out.println("Bundle ID: " + bundles.get(0).getBundleId());
+            System.err.println("Bundle ID: " + bundles.get(0).getBundleId());
         } else {
             StringBuffer sb = new StringBuffer("Bundle IDs: ");
             for (Bundle bundle : bundles) {
@@ -79,7 +80,7 @@ public class BundleInstall {
                 }
                 sb.append(bundle.getBundleId());
             }
-            System.out.println(sb);
+            System.err.println(sb);
         }
         MultiException.throwIf("Error installing bundles", exceptions);
         return null;
